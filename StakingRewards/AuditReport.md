@@ -2,32 +2,30 @@
 
 ## Summary
 
-Number of lines: 1144 (+ 0 in dependencies, + 0 in tests)
-Number of assembly lines: 0
-Number of contracts: 10 (+ 0 in dependencies, + 0 tests) 
+### Project Metrics
 
-Number of optimization issues: 0
-Number of informational issues: 34
-Number of low issues: 10
-Number of medium issues: 2
-Number of high issues: 1
-ERCs: ERC20
+- Number of lines: 1144 (+ 0 in dependencies, + 0 in tests)
+- Number of assembly lines: 0
+- Number of contracts: 10 (+ 0 in dependencies, + 0 tests)
+- Number of optimization issues: 0
+- Number of informational issues: 34
+- Number of low issues: 10
+- Number of medium issues: 2
+- Number of high issues: 1
+- ERCs: ERC20
 
-+----------------+-------------+-------+--------------------+--------------+--------------------+
-|      Name      | # functions |  ERCS |     ERC20 info     | Complex code |      Features      |
-+----------------+-------------+-------+--------------------+--------------+--------------------+
-|  IERC20Permit  |      3      |       |                    |      No      |                    |
-|     IERC20     |      6      | ERC20 |     No Minting     |      No      |                    |
-|                |             |       | Approve Race Cond. |              |                    |
-|                |             |       |                    |              |                    |
-|    Address     |      13     |       |                    |      No      |      Send ETH      |
-|                |             |       |                    |              |    Delegatecall    |
-|                |             |       |                    |              |      Assembly      |
-|   SafeERC20    |      7      |       |                    |      No      |      Send ETH      |
-|                |             |       |                    |              | Tokens interaction |
-| StakingRewards |      44     |       |                    |      No      |      Send ETH      |
-|                |             |       |                    |              | Tokens interaction |
-+----------------+-------------+-------+--------------------+--------------+--------------------+
+### Contract Details
+
+| Name | # Functions | ERCS | ERC20 Info | Complex Code | Features |
+| --- | --- | --- | --- | --- | --- |
+| IERC20Permit | 3 |  |  | No |  |
+| IERC20 | 6 | ERC20 | No Minting, Approve Race Cond. | No |  |
+| Address | 13 |  |  | No | Send ETH, Delegatecall, Assembly |
+| SafeERC20 | 7 |  |  | No | Send ETH, Tokens interaction |
+| StakingRewards | 44 |  |  | No | Send ETH, Tokens interaction |
+
+
+**Note:** The table above shows the details of the contracts used in the project. The `# Functions` column shows the number of functions in each contract. The `ERC20 Info` column shows additional information about the ERC20 implementation used in the contract. The `Complex Code` column indicates whether the contract contains complex code. The `Features` column lists the features supported by the contract.
 
 ## Contract Summary
 
