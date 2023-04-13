@@ -347,4 +347,4 @@ Different versions of Solidity are used:<br>
 Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#different-pragma-directives-are-used<br>
 <br>
 <br>
-[Notice]: Minimum solidity version should be 0.8.9 for StakingRewards.sol.
+**Note:** Minimum solidity version should be 0.8.9 for StakingRewards.sol.
