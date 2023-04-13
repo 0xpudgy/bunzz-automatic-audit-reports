@@ -16,7 +16,7 @@
 
 ### Contract Details
 
-| Name | # Functions | ERCS | ERC20 Info | Complex Code | Features |
+| Name | Functions | ERCS | ERC20 Info | Complex Code | Features |
 | --- | --- | --- | --- | --- | --- |
 | IERC20Permit | 3 |  |  | No |  |
 | IERC20 | 6 | ERC20 | No Minting, Approve Race Cond. | No |  |
@@ -25,12 +25,12 @@
 | StakingRewards | 44 |  |  | No | Send ETH, Tokens interaction |
 
 
-**Note:** The table above shows the details of the contracts used in the project. The `# Functions` column shows the number of functions in each contract. The `ERC20 Info` column shows additional information about the ERC20 implementation used in the contract. The `Complex Code` column indicates whether the contract contains complex code. The `Features` column lists the features supported by the contract.
+**Note:** The table above shows the details of the contracts used in the project. The `Functions` column shows the number of functions in each contract. The `ERC20 Info` column shows additional information about the ERC20 implementation used in the contract. The `Complex Code` column indicates whether the contract contains complex code. The `Features` column lists the features supported by the contract.
 
 ## Contract Summary
 
-+ Contract IStakingRewards
-  - From IStakingRewards
+### Interface IStakingRewards
+  + From IStakingRewards
     - balanceOf(address) (external)
     - claim() (external)
     - earned(address) (external)
@@ -41,27 +41,27 @@
     - stake(uint256) (external)
     - unstake(uint256) (external)
 
-+ Contract StakingRewards (Most derived contract)
-  - From ReentrancyGuard
+### Contract StakingRewards
+  + From ReentrancyGuard
     - _nonReentrantAfter() (private)
     - _nonReentrantBefore() (private)
     - constructor() (internal)
-  - From Pausable
+  + From Pausable
     - _pause() (internal)
     - _requireNotPaused() (internal)
     - _requirePaused() (internal)
     - _unpause() (internal)
     - paused() (public)
-  - From Context
+  + From Context
     - _msgData() (internal)
     - _msgSender() (internal)
-  - From Ownable
+  + From Ownable
     - _checkOwner() (internal)
     - _transferOwnership(address) (internal)
     - owner() (public)
     - renounceOwnership() (public)
     - transferOwnership(address) (public)
-  - From StakingRewards
+  + From StakingRewards
     - _earned(address) (internal)
     - _lastTimeRewardApplicable() (internal)
     - _rewardPerToken() (internal)
