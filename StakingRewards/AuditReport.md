@@ -345,5 +345,4 @@ Different versions of Solidity are used:<br>
 &emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#815)<br>
 &emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#841)<br>
 Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#different-pragma-directives-are-used<br>
-<br>
 **Note:** Minimum solidity version should be 0.8.9 for StakingRewards.sol.
