@@ -1,0 +1,28 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+oldOwner = _owner
+
+IRs:
+oldOwner(address) := _owner(address)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+_owner = newOwner
+
+IRs:
+_owner(address) := newOwner(address)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+OwnershipTransferred(oldOwner,newOwner)
+
+IRs:
+Emit OwnershipTransferred(oldOwner,newOwner)"];
+}

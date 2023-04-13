@@ -1,0 +1,9 @@
+digraph{
+0[label="Node Type: OTHER_ENTRYPOINT 0
+
+EXPRESSION:
+rewardsDuration = 604800
+
+IRs:
+rewardsDuration(uint256) := 604800(uint256)"];
+}

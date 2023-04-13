@@ -1,0 +1,115 @@
+strict digraph {
+subgraph cluster_1056_IStakingRewards {
+label = "IStakingRewards"
+"1056_unstake" [label="unstake"]
+"1056_claim" [label="claim"]
+"1056_lastTimeRewardApplicable" [label="lastTimeRewardApplicable"]
+"1056_rewardPerToken" [label="rewardPerToken"]
+"1056_balanceOf" [label="balanceOf"]
+"1056_earned" [label="earned"]
+"1056_stake" [label="stake"]
+"1056_exit" [label="exit"]
+"1056_getRewardForDuration" [label="getRewardForDuration"]
+}subgraph cluster_132_Ownable {
+label = "Ownable"
+"132_constructor" [label="constructor"]
+"132_owner" [label="owner"]
+"132__transferOwnership" [label="_transferOwnership"]
+"132__checkOwner" [label="_checkOwner"]
+"132_transferOwnership" [label="transferOwnership"]
+"132_renounceOwnership" [label="renounceOwnership"]
+"132__checkOwner" -> "132__msgSender"
+"132_transferOwnership" -> "132_onlyOwner"
+"132_constructor" -> "132__msgSender"
+"132__checkOwner" -> "132_owner"
+"132_renounceOwnership" -> "132__transferOwnership"
+"132_renounceOwnership" -> "132_onlyOwner"
+"132_constructor" -> "132__transferOwnership"
+"132_transferOwnership" -> "132__transferOwnership"
+}subgraph cluster_238_Pausable {
+label = "Pausable"
+"238_constructor" [label="constructor"]
+"238__unpause" [label="_unpause"]
+"238__pause" [label="_pause"]
+"238_paused" [label="paused"]
+"238__requireNotPaused" [label="_requireNotPaused"]
+"238__requirePaused" [label="_requirePaused"]
+"238__unpause" -> "238__msgSender"
+"238__unpause" -> "238_whenPaused"
+"238__pause" -> "238_whenNotPaused"
+"238__pause" -> "238__msgSender"
+"238__requireNotPaused" -> "238_paused"
+"238__requirePaused" -> "238_paused"
+}subgraph cluster_1009_ReentrancyGuard {
+label = "ReentrancyGuard"
+"1009_constructor" [label="constructor"]
+"1009__nonReentrantAfter" [label="_nonReentrantAfter"]
+"1009__nonReentrantBefore" [label="_nonReentrantBefore"]
+}subgraph cluster_1682_StakingRewards {
+label = "StakingRewards"
+"1682_exit" [label="exit"]
+"1682_fund" [label="fund"]
+"1682_earned" [label="earned"]
+"1682_rewardPerToken" [label="rewardPerToken"]
+"1682_slitherConstructorConstantVariables" [label="slitherConstructorConstantVariables"]
+"1682_balanceOf" [label="balanceOf"]
+"1682_stake" [label="stake"]
+"1682_slitherConstructorVariables" [label="slitherConstructorVariables"]
+"1682_claim" [label="claim"]
+"1682_lastTimeRewardApplicable" [label="lastTimeRewardApplicable"]
+"1682_setRewardsDuration" [label="setRewardsDuration"]
+"1682_getRewardForDuration" [label="getRewardForDuration"]
+"1682_constructor" [label="constructor"]
+"1682__rewardPerToken" [label="_rewardPerToken"]
+"1682_recoverERC20" [label="recoverERC20"]
+"1682__earned" [label="_earned"]
+"1682__lastTimeRewardApplicable" [label="_lastTimeRewardApplicable"]
+"1682_unstake" [label="unstake"]
+"1682_unstake" -> "1682_updateReward"
+"1682_claim" -> "1682_updateReward"
+"1682_exit" -> "1682_unstake"
+"1682_fund" -> "1682_onlyOwner"
+"1682_exit" -> "1682_whenNotPaused"
+"1682_rewardPerToken" -> "1682__rewardPerToken"
+"1682_lastTimeRewardApplicable" -> "1682__lastTimeRewardApplicable"
+"1682_stake" -> "1682_nonReentrant"
+"1682_recoverERC20" -> "1682_onlyOwner"
+"1682_earned" -> "1682__earned"
+"1682_unstake" -> "1682_whenNotPaused"
+"1682_unstake" -> "1682_nonReentrant"
+"1682_claim" -> "1682_whenNotPaused"
+"1682_recoverERC20" -> "1682_owner"
+"1682__rewardPerToken" -> "1682__lastTimeRewardApplicable"
+"1682_stake" -> "1682_updateReward"
+"1682_stake" -> "1682_whenNotPaused"
+"1682_setRewardsDuration" -> "1682_onlyOwner"
+"1682_claim" -> "1682_nonReentrant"
+"1682_fund" -> "1682_whenNotPaused"
+"1682__earned" -> "1682__rewardPerToken"
+"1682_fund" -> "1682_updateReward"
+"1682_exit" -> "1682_claim"
+}subgraph cluster_21_Context {
+label = "Context"
+"21__msgData" [label="_msgData"]
+"21__msgSender" [label="_msgSender"]
+}subgraph cluster_solidity {
+label = "[Solidity]"
+"revert ZeroAmount()" 
+"require(bool,string)" 
+"revert NotEnoughBalance()" 
+"revert FailedToWithdrawStaking()" 
+"revert TooHighReward()" 
+"revert WaitToFinish()" 
+"1682_setRewardsDuration" -> "revert WaitToFinish()"
+"132_transferOwnership" -> "require(bool,string)"
+"238__requireNotPaused" -> "require(bool,string)"
+"1009__nonReentrantBefore" -> "require(bool,string)"
+"1682_fund" -> "revert TooHighReward()"
+"1682_unstake" -> "revert ZeroAmount()"
+"1682_recoverERC20" -> "revert FailedToWithdrawStaking()"
+"132__checkOwner" -> "require(bool,string)"
+"238__requirePaused" -> "require(bool,string)"
+"1682_unstake" -> "revert NotEnoughBalance()"
+"1682_stake" -> "revert ZeroAmount()"
+}
+}

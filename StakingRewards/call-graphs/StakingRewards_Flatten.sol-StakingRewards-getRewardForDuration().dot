@@ -1,0 +1,13 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+rewardRate * rewardsDuration
+
+IRs:
+TMP_202(uint256) = rewardRate (c)* rewardsDuration
+RETURN TMP_202"];
+}

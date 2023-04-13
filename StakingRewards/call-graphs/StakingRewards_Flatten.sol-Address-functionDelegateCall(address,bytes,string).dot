@@ -1,0 +1,29 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: NEW VARIABLE 1
+"];
+1->2;
+2[label="Node Type: NEW VARIABLE 2
+"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+(success,returndata) = target.delegatecall(data)
+
+IRs:
+TUPLE_3(bool,bytes) = LOW_LEVEL_CALL, dest:target, function:delegatecall, arguments:['data']  
+success(bool)= UNPACK TUPLE_3 index: 0 
+returndata(bytes)= UNPACK TUPLE_3 index: 1 "];
+3->4;
+4[label="Node Type: RETURN 4
+
+EXPRESSION:
+verifyCallResultFromTarget(target,success,returndata,errorMessage)
+
+IRs:
+TMP_47(bytes) = INTERNAL_CALL, Address.verifyCallResultFromTarget(address,bool,bytes,string)(target,success,returndata,errorMessage)
+RETURN TMP_47"];
+}

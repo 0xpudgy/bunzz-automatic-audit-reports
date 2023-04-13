@@ -1,0 +1,20 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: RETURN 1
+
+EXPRESSION:
+(balances[account] * (_rewardPerToken() - userRewardPerTokenPaid[account])) / 1e18 + rewards[account]
+
+IRs:
+REF_43(uint256) -> balances[account]
+TMP_194(uint256) = INTERNAL_CALL, StakingRewards._rewardPerToken()()
+REF_44(uint256) -> userRewardPerTokenPaid[account]
+TMP_195(uint256) = TMP_194 (c)- REF_44
+TMP_196(uint256) = REF_43 (c)* TMP_195
+TMP_197(uint256) = TMP_196 (c)/ 1000000000000000000
+REF_45(uint256) -> rewards[account]
+TMP_198(uint256) = TMP_197 (c)+ REF_45
+RETURN TMP_198"];
+}

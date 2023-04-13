@@ -1,0 +1,52 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->6;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+tokenAddress == address(stakingToken)
+
+IRs:
+TMP_178 = CONVERT stakingToken to address
+TMP_179(bool) = tokenAddress == TMP_178
+CONDITION TMP_179"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+revert FailedToWithdrawStaking()()
+
+IRs:
+TMP_180(None) = SOLIDITY_CALL revert FailedToWithdrawStaking()()"];
+2->3;
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+IERC20(tokenAddress).safeTransfer(owner(),tokenAmount)
+
+IRs:
+TMP_181 = CONVERT tokenAddress to IERC20
+TMP_182(address) = INTERNAL_CALL, Ownable.owner()()
+LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['TMP_181', 'TMP_182', 'tokenAmount'] "];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Recovered(tokenAddress,tokenAmount)
+
+IRs:
+Emit Recovered(tokenAddress,tokenAmount)"];
+6[label="Node Type: EXPRESSION 6
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyOwner()()"];
+6->1;
+}

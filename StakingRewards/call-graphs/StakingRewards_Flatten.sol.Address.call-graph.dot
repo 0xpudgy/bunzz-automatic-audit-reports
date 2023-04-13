@@ -1,0 +1,41 @@
+strict digraph {
+subgraph cluster_679_Address {
+label = "Address"
+"679_isContract" [label="isContract"]
+"679__revert" [label="_revert"]
+"679_verifyCallResultFromTarget" [label="verifyCallResultFromTarget"]
+"679_sendValue" [label="sendValue"]
+"679_functionCall" [label="functionCall"]
+"679_verifyCallResult" [label="verifyCallResult"]
+"679_functionDelegateCall" [label="functionDelegateCall"]
+"679_functionStaticCall" [label="functionStaticCall"]
+"679_functionCallWithValue" [label="functionCallWithValue"]
+"679_verifyCallResult" -> "679__revert"
+"679_functionCallWithValue" -> "679_functionCallWithValue"
+"679_verifyCallResultFromTarget" -> "679__revert"
+"679_functionDelegateCall" -> "679_functionDelegateCall"
+"679_functionDelegateCall" -> "679_verifyCallResultFromTarget"
+"679_functionCall" -> "679_functionCallWithValue"
+"679_verifyCallResultFromTarget" -> "679_isContract"
+"679_functionStaticCall" -> "679_verifyCallResultFromTarget"
+"679_functionCallWithValue" -> "679_verifyCallResultFromTarget"
+"679_functionStaticCall" -> "679_functionStaticCall"
+}subgraph cluster_solidity {
+label = "[Solidity]"
+"revert(string)" 
+"code(address)" 
+"require(bool,string)" 
+"mload(uint256)" 
+"revert(uint256,uint256)" 
+"balance(address)" 
+"679_functionCallWithValue" -> "balance(address)"
+"679_isContract" -> "code(address)"
+"679__revert" -> "mload(uint256)"
+"679_sendValue" -> "balance(address)"
+"679_verifyCallResultFromTarget" -> "require(bool,string)"
+"679_sendValue" -> "require(bool,string)"
+"679__revert" -> "revert(string)"
+"679_functionCallWithValue" -> "require(bool,string)"
+"679__revert" -> "revert(uint256,uint256)"
+}
+}

@@ -1,0 +1,145 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->15;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+block.timestamp >= periodFinish
+
+IRs:
+TMP_159(bool) = block.timestamp >= periodFinish
+CONDITION TMP_159"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+rewardRate = reward / rewardsDuration
+
+IRs:
+TMP_160(uint256) = reward (c)/ rewardsDuration
+rewardRate(uint256) := TMP_160(uint256)"];
+2->6;
+3[label="Node Type: NEW VARIABLE 3
+
+EXPRESSION:
+remaining = periodFinish - block.timestamp
+
+IRs:
+TMP_161(uint256) = periodFinish (c)- block.timestamp
+remaining(uint256) := TMP_161(uint256)"];
+3->4;
+4[label="Node Type: NEW VARIABLE 4
+
+EXPRESSION:
+leftover = remaining * rewardRate
+
+IRs:
+TMP_162(uint256) = remaining (c)* rewardRate
+leftover(uint256) := TMP_162(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+rewardRate = (reward + leftover) / rewardsDuration
+
+IRs:
+TMP_163(uint256) = reward (c)+ leftover
+TMP_164(uint256) = TMP_163 (c)/ rewardsDuration
+rewardRate(uint256) := TMP_164(uint256)"];
+5->6;
+6[label="Node Type: END_IF 6
+"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+rewardsToken.safeTransferFrom(msg.sender,address(this),reward)
+
+IRs:
+TMP_165 = CONVERT this to address
+LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransferFrom(IERC20,address,address,uint256), arguments:['rewardsToken', 'msg.sender', 'TMP_165', 'reward'] "];
+7->8;
+8[label="Node Type: NEW VARIABLE 8
+
+EXPRESSION:
+balance = rewardsToken.balanceOf(address(this))
+
+IRs:
+TMP_167 = CONVERT this to address
+TMP_168(uint256) = HIGH_LEVEL_CALL, dest:rewardsToken(IERC20), function:balanceOf, arguments:['TMP_167']  
+balance(uint256) := TMP_168(uint256)"];
+8->9;
+9[label="Node Type: IF 9
+
+EXPRESSION:
+rewardRate > balance / rewardsDuration
+
+IRs:
+TMP_169(uint256) = balance (c)/ rewardsDuration
+TMP_170(bool) = rewardRate > TMP_169
+CONDITION TMP_170"];
+9->10[label="True"];
+9->11[label="False"];
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+revert TooHighReward()()
+
+IRs:
+TMP_171(None) = SOLIDITY_CALL revert TooHighReward()()"];
+10->11;
+11[label="Node Type: END_IF 11
+"];
+11->12;
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+lastUpdateTime = block.timestamp
+
+IRs:
+lastUpdateTime(uint256) := block.timestamp(uint256)"];
+12->13;
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+periodFinish = block.timestamp + rewardsDuration
+
+IRs:
+TMP_172(uint256) = block.timestamp (c)+ rewardsDuration
+periodFinish(uint256) := TMP_172(uint256)"];
+13->14;
+14[label="Node Type: EXPRESSION 14
+
+EXPRESSION:
+Funded(reward)
+
+IRs:
+Emit Funded(reward)"];
+15[label="Node Type: EXPRESSION 15
+
+EXPRESSION:
+onlyOwner()
+
+IRs:
+MODIFIER_CALL, Ownable.onlyOwner()()"];
+15->16;
+16[label="Node Type: EXPRESSION 16
+
+EXPRESSION:
+whenNotPaused()
+
+IRs:
+MODIFIER_CALL, Pausable.whenNotPaused()()"];
+16->17;
+17[label="Node Type: EXPRESSION 17
+
+EXPRESSION:
+updateReward(address(0))
+
+IRs:
+TMP_176 = CONVERT 0 to address
+MODIFIER_CALL, StakingRewards.updateReward(address)(TMP_176)"];
+17->1;
+}

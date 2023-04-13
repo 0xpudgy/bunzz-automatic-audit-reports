@@ -1,0 +1,30 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+rewardsToken = IERC20(rewardsToken_)
+
+IRs:
+TMP_125 = CONVERT rewardsToken_ to IERC20
+rewardsToken(IERC20) := TMP_125(IERC20)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+stakingToken = IERC20(stakingToken_)
+
+IRs:
+TMP_126 = CONVERT stakingToken_ to IERC20
+stakingToken(IERC20) := TMP_126(IERC20)"];
+2->3;
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+rewardsDuration = duration
+
+IRs:
+rewardsDuration(uint256) := duration(uint256)"];
+}

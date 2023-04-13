@@ -1,0 +1,29 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+block.timestamp < periodFinish
+
+IRs:
+TMP_186(bool) = block.timestamp < periodFinish
+CONDITION TMP_186"];
+2->3[label="True"];
+2->4[label="False"];
+3[label="Node Type: RETURN 3
+
+EXPRESSION:
+block.timestamp
+
+IRs:
+RETURN block.timestamp"];
+4[label="Node Type: RETURN 4
+
+EXPRESSION:
+periodFinish
+
+IRs:
+RETURN periodFinish"];
+}

@@ -1,0 +1,105 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->11;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+amount <= 0
+
+IRs:
+TMP_140(bool) = amount <= 0
+CONDITION TMP_140"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+revert ZeroAmount()()
+
+IRs:
+TMP_141(None) = SOLIDITY_CALL revert ZeroAmount()()"];
+2->3;
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: IF 4
+
+EXPRESSION:
+balances[msg.sender] < amount
+
+IRs:
+REF_33(uint256) -> balances[msg.sender]
+TMP_142(bool) = REF_33 < amount
+CONDITION TMP_142"];
+4->5[label="True"];
+4->6[label="False"];
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+revert NotEnoughBalance()()
+
+IRs:
+TMP_143(None) = SOLIDITY_CALL revert NotEnoughBalance()()"];
+5->6;
+6[label="Node Type: END_IF 6
+"];
+6->7;
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+totalSupply = totalSupply - amount
+
+IRs:
+TMP_144(uint256) = totalSupply (c)- amount
+totalSupply(uint256) := TMP_144(uint256)"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+balances[msg.sender] -= amount
+
+IRs:
+REF_34(uint256) -> balances[msg.sender]
+REF_34(-> balances) = REF_34 (c)- amount"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+stakingToken.safeTransfer(msg.sender,amount)
+
+IRs:
+LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['stakingToken', 'msg.sender', 'amount'] "];
+9->10;
+10[label="Node Type: EXPRESSION 10
+
+EXPRESSION:
+Unstaked(msg.sender,amount)
+
+IRs:
+Emit Unstaked(msg.sender,amount)"];
+11[label="Node Type: EXPRESSION 11
+
+EXPRESSION:
+nonReentrant()
+
+IRs:
+MODIFIER_CALL, ReentrancyGuard.nonReentrant()()"];
+11->12;
+12[label="Node Type: EXPRESSION 12
+
+EXPRESSION:
+whenNotPaused()
+
+IRs:
+MODIFIER_CALL, Pausable.whenNotPaused()()"];
+12->13;
+13[label="Node Type: EXPRESSION 13
+
+EXPRESSION:
+updateReward(msg.sender)
+
+IRs:
+MODIFIER_CALL, StakingRewards.updateReward(address)(msg.sender)"];
+13->1;
+}

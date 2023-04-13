@@ -1,0 +1,38 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: IF 1
+
+EXPRESSION:
+totalSupply == 0
+
+IRs:
+TMP_187(bool) = totalSupply == 0
+CONDITION TMP_187"];
+1->2[label="True"];
+1->3[label="False"];
+2[label="Node Type: RETURN 2
+
+EXPRESSION:
+rewardPerTokenStored
+
+IRs:
+RETURN rewardPerTokenStored"];
+3[label="Node Type: END_IF 3
+"];
+3->4;
+4[label="Node Type: RETURN 4
+
+EXPRESSION:
+rewardPerTokenStored + ((_lastTimeRewardApplicable() - lastUpdateTime) * rewardRate * 1e18) / totalSupply
+
+IRs:
+TMP_188(uint256) = INTERNAL_CALL, StakingRewards._lastTimeRewardApplicable()()
+TMP_189(uint256) = TMP_188 (c)- lastUpdateTime
+TMP_190(uint256) = TMP_189 (c)* rewardRate
+TMP_191(uint256) = TMP_190 (c)* 1000000000000000000
+TMP_192(uint256) = TMP_191 (c)/ totalSupply
+TMP_193(uint256) = rewardPerTokenStored (c)+ TMP_192
+RETURN TMP_193"];
+}

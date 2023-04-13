@@ -1,0 +1,75 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->7;
+1[label="Node Type: NEW VARIABLE 1
+
+EXPRESSION:
+reward = rewards[msg.sender]
+
+IRs:
+REF_36(uint256) -> rewards[msg.sender]
+reward(uint256) := REF_36(uint256)"];
+1->2;
+2[label="Node Type: IF 2
+
+EXPRESSION:
+reward > 0
+
+IRs:
+TMP_150(bool) = reward > 0
+CONDITION TMP_150"];
+2->3[label="True"];
+2->6[label="False"];
+3[label="Node Type: EXPRESSION 3
+
+EXPRESSION:
+rewards[msg.sender] = 0
+
+IRs:
+REF_37(uint256) -> rewards[msg.sender]
+REF_37 (->rewards) := 0(uint256)"];
+3->4;
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+rewardsToken.safeTransfer(msg.sender,reward)
+
+IRs:
+LIBRARY_CALL, dest:SafeERC20, function:SafeERC20.safeTransfer(IERC20,address,uint256), arguments:['rewardsToken', 'msg.sender', 'reward'] "];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+Claimed(msg.sender,reward)
+
+IRs:
+Emit Claimed(msg.sender,reward)"];
+5->6;
+6[label="Node Type: END_IF 6
+"];
+7[label="Node Type: EXPRESSION 7
+
+EXPRESSION:
+nonReentrant()
+
+IRs:
+MODIFIER_CALL, ReentrancyGuard.nonReentrant()()"];
+7->8;
+8[label="Node Type: EXPRESSION 8
+
+EXPRESSION:
+whenNotPaused()
+
+IRs:
+MODIFIER_CALL, Pausable.whenNotPaused()()"];
+8->9;
+9[label="Node Type: EXPRESSION 9
+
+EXPRESSION:
+updateReward(msg.sender)
+
+IRs:
+MODIFIER_CALL, StakingRewards.updateReward(address)(msg.sender)"];
+9->1;
+}

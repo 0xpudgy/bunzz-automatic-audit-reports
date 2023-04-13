@@ -1,0 +1,58 @@
+digraph{
+0[label="Node Type: ENTRY_POINT 0
+"];
+0->1;
+1[label="Node Type: EXPRESSION 1
+
+EXPRESSION:
+rewardPerTokenStored = _rewardPerToken()
+
+IRs:
+TMP_208(uint256) = INTERNAL_CALL, StakingRewards._rewardPerToken()()
+rewardPerTokenStored(uint256) := TMP_208(uint256)"];
+1->2;
+2[label="Node Type: EXPRESSION 2
+
+EXPRESSION:
+lastUpdateTime = _lastTimeRewardApplicable()
+
+IRs:
+TMP_209(uint256) = INTERNAL_CALL, StakingRewards._lastTimeRewardApplicable()()
+lastUpdateTime(uint256) := TMP_209(uint256)"];
+2->3;
+3[label="Node Type: IF 3
+
+EXPRESSION:
+account != address(0)
+
+IRs:
+TMP_210 = CONVERT 0 to address
+TMP_211(bool) = account != TMP_210
+CONDITION TMP_211"];
+3->4[label="True"];
+3->6[label="False"];
+4[label="Node Type: EXPRESSION 4
+
+EXPRESSION:
+rewards[account] = _earned(account)
+
+IRs:
+REF_47(uint256) -> rewards[account]
+TMP_212(uint256) = INTERNAL_CALL, StakingRewards._earned(address)(account)
+REF_47 (->rewards) := TMP_212(uint256)"];
+4->5;
+5[label="Node Type: EXPRESSION 5
+
+EXPRESSION:
+userRewardPerTokenPaid[account] = rewardPerTokenStored
+
+IRs:
+REF_48(uint256) -> userRewardPerTokenPaid[account]
+REF_48 (->userRewardPerTokenPaid) := rewardPerTokenStored(uint256)"];
+5->6;
+6[label="Node Type: END_IF 6
+"];
+6->7;
+7[label="Node Type: _ 7
+"];
+}
