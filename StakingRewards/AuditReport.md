@@ -230,121 +230,121 @@ Here are the details:
 
 Reentrancy in StakingRewards.exit() (StakingRewards_Flatten.sol#1020-1023):
 <br>
-&emsp;&emsp;External calls:
-&emsp;&emsp;- unstake(balances[msg.sender]) (StakingRewards_Flatten.sol#1021)
-&emsp;&emsp;&emsp;&emsp;- returndata = address(token).functionCall(data,SafeERC20: low-level call failed) (StakingRewards_Flatten.sol#730)
-&emsp;&emsp;&emsp;&emsp;- (success,returndata) = target.call{value: value}(data) (StakingRewards_Flatten.sol#509)
-&emsp;&emsp;&emsp;&emsp;- stakingToken.safeTransfer(msg.sender,amount) (StakingRewards_Flatten.sol#999)
-&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)
-&emsp;&emsp;&emsp;&emsp;- returndata = address(token).functionCall(data,SafeERC20: low-level call failed) (StakingRewards_Flatten.sol#730)
-&emsp;&emsp;&emsp;&emsp;- rewardsToken.safeTransfer(msg.sender,reward) (StakingRewards_Flatten.sol#1011)
-&emsp;&emsp;&emsp;&emsp;- (success,returndata) = target.call{value: value}(data) (StakingRewards_Flatten.sol#509)
-&emsp;&emsp;External calls sending eth:
-&emsp;&emsp;- unstake(balances[msg.sender]) (StakingRewards_Flatten.sol#1021)
-&emsp;&emsp;&emsp;&emsp;- (success,returndata) = target.call{value: value}(data) (StakingRewards_Flatten.sol#509)
-&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)
-&emsp;&emsp;&emsp;&emsp;- (success,returndata) = target.call{value: value}(data) (StakingRewards_Flatten.sol#509)
-&emsp;&emsp;State variables written after the call(s):
-&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)
-&emsp;&emsp;&emsp;&emsp;- _status = _NOT_ENTERED (StakingRewards_Flatten.sol#807)
-&emsp;&emsp;&emsp;&emsp;- _status = _ENTERED (StakingRewards_Flatten.sol#801)
-&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)
-&emsp;&emsp;&emsp;&emsp;- lastUpdateTime = _lastTimeRewardApplicable() (StakingRewards_Flatten.sol#924)
-&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)
-&emsp;&emsp;&emsp;&emsp;- rewardPerTokenStored = _rewardPerToken() (StakingRewards_Flatten.sol#923)
-&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)
-&emsp;&emsp;&emsp;&emsp;- rewards[msg.sender] = 0 (StakingRewards_Flatten.sol#1010)
-&emsp;&emsp;&emsp;&emsp;- rewards[account] = _earned(account) (StakingRewards_Flatten.sol#926)
-&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)
-&emsp;&emsp;&emsp;&emsp;- userRewardPerTokenPaid[account] = rewardPerTokenStored (StakingRewards_Flatten.sol#927)
-Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities
-
-StakingRewards.fund(uint256) (StakingRewards_Flatten.sol#1032-1057) performs a multiplication on the result of a division:
-&emsp;&emsp;- rewardRate = reward / rewardsDuration (StakingRewards_Flatten.sol#1036)
-&emsp;&emsp;- leftover = remaining * rewardRate (StakingRewards_Flatten.sol#1039)
-Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#divide-before-multiply
-
-Reentrancy in StakingRewards.fund(uint256) (StakingRewards_Flatten.sol#1032-1057):
-&emsp;&emsp;External calls:
-&emsp;&emsp;- rewardsToken.safeTransferFrom(msg.sender,address(this),reward) (StakingRewards_Flatten.sol#1047)
-&emsp;&emsp;State variables written after the call(s):
-&emsp;&emsp;- lastUpdateTime = block.timestamp (StakingRewards_Flatten.sol#1053)
-&emsp;&emsp;- periodFinish = block.timestamp + rewardsDuration (StakingRewards_Flatten.sol#1054)
-Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-1
-
-Reentrancy in StakingRewards.claim() (StakingRewards_Flatten.sol#1007-1014):
-&emsp;&emsp;External calls:
-&emsp;&emsp;- rewardsToken.safeTransfer(msg.sender,reward) (StakingRewards_Flatten.sol#1011)
-&emsp;&emsp;Event emitted after the call(s):
-&emsp;&emsp;- Claimed(msg.sender,reward) (StakingRewards_Flatten.sol#1012)
-Reentrancy in StakingRewards.exit() (StakingRewards_Flatten.sol#1020-1023):
-&emsp;&emsp;External calls:
-&emsp;&emsp;- unstake(balances[msg.sender]) (StakingRewards_Flatten.sol#1021)
-&emsp;&emsp;&emsp;&emsp;- returndata = address(token).functionCall(data,SafeERC20: low-level call failed) (StakingRewards_Flatten.sol#730)
-&emsp;&emsp;&emsp;&emsp;- (success,returndata) = target.call{value: value}(data) (StakingRewards_Flatten.sol#509)
-&emsp;&emsp;&emsp;&emsp;- stakingToken.safeTransfer(msg.sender,amount) (StakingRewards_Flatten.sol#999)
-&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)
-&emsp;&emsp;&emsp;&emsp;- returndata = address(token).functionCall(data,SafeERC20: low-level call failed) (StakingRewards_Flatten.sol#730)
-&emsp;&emsp;&emsp;&emsp;- rewardsToken.safeTransfer(msg.sender,reward) (StakingRewards_Flatten.sol#1011)
-&emsp;&emsp;&emsp;&emsp;- (success,returndata) = target.call{value: value}(data) (StakingRewards_Flatten.sol#509)
-&emsp;&emsp;External calls sending eth:
-&emsp;&emsp;- unstake(balances[msg.sender]) (StakingRewards_Flatten.sol#1021)
-&emsp;&emsp;&emsp;&emsp;- (success,returndata) = target.call{value: value}(data) (StakingRewards_Flatten.sol#509)
-&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)
-&emsp;&emsp;&emsp;&emsp;- (success,returndata) = target.call{value: value}(data) (StakingRewards_Flatten.sol#509)
-&emsp;&emsp;Event emitted after the call(s):
-&emsp;&emsp;- Claimed(msg.sender,reward) (StakingRewards_Flatten.sol#1012)
-&emsp;&emsp;&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)
-Reentrancy in StakingRewards.fund(uint256) (StakingRewards_Flatten.sol#1032-1057):
-&emsp;&emsp;External calls:
-&emsp;&emsp;- rewardsToken.safeTransferFrom(msg.sender,address(this),reward) (StakingRewards_Flatten.sol#1047)
-&emsp;&emsp;Event emitted after the call(s):
-&emsp;&emsp;- Funded(reward) (StakingRewards_Flatten.sol#1056)
-Reentrancy in StakingRewards.recoverERC20(address,uint256) (StakingRewards_Flatten.sol#1066-1075):
-&emsp;&emsp;External calls:
-&emsp;&emsp;- IERC20(tokenAddress).safeTransfer(owner(),tokenAmount) (StakingRewards_Flatten.sol#1073)
-&emsp;&emsp;Event emitted after the call(s):
-&emsp;&emsp;- Recovered(tokenAddress,tokenAmount) (StakingRewards_Flatten.sol#1074)
-Reentrancy in StakingRewards.stake(uint256) (StakingRewards_Flatten.sol#969-979):
-&emsp;&emsp;External calls:
-&emsp;&emsp;- stakingToken.safeTransferFrom(msg.sender,address(this),amount) (StakingRewards_Flatten.sol#977)
-&emsp;&emsp;Event emitted after the call(s):
-&emsp;&emsp;- Staked(msg.sender,amount) (StakingRewards_Flatten.sol#978)
-Reentrancy in StakingRewards.unstake(uint256) (StakingRewards_Flatten.sol#988-1001):
-&emsp;&emsp;External calls:
-&emsp;&emsp;- stakingToken.safeTransfer(msg.sender,amount) (StakingRewards_Flatten.sol#999)
-&emsp;&emsp;Event emitted after the call(s):
-&emsp;&emsp;- Unstaked(msg.sender,amount) (StakingRewards_Flatten.sol#1000)
-Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-3
-
-StakingRewards.setRewardsDuration(uint256) (StakingRewards_Flatten.sol#954-960) uses timestamp for comparisons
-&emsp;&emsp;Dangerous comparisons:
-&emsp;&emsp;- block.timestamp < periodFinish (StakingRewards_Flatten.sol#955)
-StakingRewards.claim() (StakingRewards_Flatten.sol#1007-1014) uses timestamp for comparisons
-&emsp;&emsp;Dangerous comparisons:
-&emsp;&emsp;- reward > 0 (StakingRewards_Flatten.sol#1009)
-StakingRewards.fund(uint256) (StakingRewards_Flatten.sol#1032-1057) uses timestamp for comparisons
-&emsp;&emsp;Dangerous comparisons:
-&emsp;&emsp;- block.timestamp >= periodFinish (StakingRewards_Flatten.sol#1035)
-&emsp;&emsp;- rewardRate > balance / rewardsDuration (StakingRewards_Flatten.sol#1049)
-StakingRewards._lastTimeRewardApplicable() (StakingRewards_Flatten.sol#1081-1083) uses timestamp for comparisons
-&emsp;&emsp;Dangerous comparisons:
-&emsp;&emsp;- block.timestamp < periodFinish (StakingRewards_Flatten.sol#1082)
-Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#block-timestamp
-
-Different versions of Solidity are used:
-&emsp;&emsp;- Version used: ['^0.8.0', '^0.8.1']
-&emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#8)
-&emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#36)
-&emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#121)
-&emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#228)
-&emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#292)
-&emsp;&emsp;- ^0.8.1 (StakingRewards_Flatten.sol#378)
-&emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#626)
-&emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#744)
-&emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#815)
-&emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#841)
-Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#different-pragma-directives-are-used
-
-
+&emsp;&emsp;External calls:<br>
+&emsp;&emsp;- unstake(balances[msg.sender]) (StakingRewards_Flatten.sol#1021)<br>
+&emsp;&emsp;&emsp;&emsp;- returndata = address(token).functionCall(data,SafeERC20: low-level call failed) (StakingRewards_Flatten.sol#730)<br>
+&emsp;&emsp;&emsp;&emsp;- (success,returndata) = target.call{value: value}(data) (StakingRewards_Flatten.sol#509)<br>
+&emsp;&emsp;&emsp;&emsp;- stakingToken.safeTransfer(msg.sender,amount) (StakingRewards_Flatten.sol#999)<br>
+&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)<br>
+&emsp;&emsp;&emsp;&emsp;- returndata = address(token).functionCall(data,SafeERC20: low-level call failed) (StakingRewards_Flatten.sol#730)<br>
+&emsp;&emsp;&emsp;&emsp;- rewardsToken.safeTransfer(msg.sender,reward) (StakingRewards_Flatten.sol#1011)<br>
+&emsp;&emsp;&emsp;&emsp;- (success,returndata) = target.call{value: value}(data) (StakingRewards_Flatten.sol#509)<br>
+&emsp;&emsp;External calls sending eth:<br>
+&emsp;&emsp;- unstake(balances[msg.sender]) (StakingRewards_Flatten.sol#1021)<br>
+&emsp;&emsp;&emsp;&emsp;- (success,returndata) = target.call{value: value}(data) (StakingRewards_Flatten.sol#509)<br>
+&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)<br>
+&emsp;&emsp;&emsp;&emsp;- (success,returndata) = target.call{value: value}(data) (StakingRewards_Flatten.sol#509)<br>
+&emsp;&emsp;State variables written after the call(s):<br>
+&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)<br>
+&emsp;&emsp;&emsp;&emsp;- _status = _NOT_ENTERED (StakingRewards_Flatten.sol#807)<br>
+&emsp;&emsp;&emsp;&emsp;- _status = _ENTERED (StakingRewards_Flatten.sol#801)<br>
+&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)<br>
+&emsp;&emsp;&emsp;&emsp;- lastUpdateTime = _lastTimeRewardApplicable() (StakingRewards_Flatten.sol#924)<br>
+&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)<br>
+&emsp;&emsp;&emsp;&emsp;- rewardPerTokenStored = _rewardPerToken() (StakingRewards_Flatten.sol#923)<br>
+&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)<br>
+&emsp;&emsp;&emsp;&emsp;- rewards[msg.sender] = 0 (StakingRewards_Flatten.sol#1010)<br>
+&emsp;&emsp;&emsp;&emsp;- rewards[account] = _earned(account) (StakingRewards_Flatten.sol#926)<br>
+&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)<br>
+&emsp;&emsp;&emsp;&emsp;- userRewardPerTokenPaid[account] = rewardPerTokenStored (StakingRewards_Flatten.sol#927)<br>
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities<br>
+<br>
+StakingRewards.fund(uint256) (StakingRewards_Flatten.sol#1032-1057) performs a multiplication on the result of a division:<br>
+&emsp;&emsp;- rewardRate = reward / rewardsDuration (StakingRewards_Flatten.sol#1036)<br>
+&emsp;&emsp;- leftover = remaining * rewardRate (StakingRewards_Flatten.sol#1039)<br>
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#divide-before-multiply<br>
+<br>
+Reentrancy in StakingRewards.fund(uint256) (StakingRewards_Flatten.sol#1032-1057):<br>
+&emsp;&emsp;External calls:<br>
+&emsp;&emsp;- rewardsToken.safeTransferFrom(msg.sender,address(this),reward) (StakingRewards_Flatten.sol#1047)<br>
+&emsp;&emsp;State variables written after the call(s):<br>
+&emsp;&emsp;- lastUpdateTime = block.timestamp (StakingRewards_Flatten.sol#1053)<br>
+&emsp;&emsp;- periodFinish = block.timestamp + rewardsDuration (StakingRewards_Flatten.sol#1054)<br>
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-1<br>
+<br>
+Reentrancy in StakingRewards.claim() (StakingRewards_Flatten.sol#1007-1014):<br>
+&emsp;&emsp;External calls:<br>
+&emsp;&emsp;- rewardsToken.safeTransfer(msg.sender,reward) (StakingRewards_Flatten.sol#1011)<br>
+&emsp;&emsp;Event emitted after the call(s):<br>
+&emsp;&emsp;- Claimed(msg.sender,reward) (StakingRewards_Flatten.sol#1012)<br>
+Reentrancy in StakingRewards.exit() (StakingRewards_Flatten.sol#1020-1023):<br>
+&emsp;&emsp;External calls:<br>
+&emsp;&emsp;- unstake(balances[msg.sender]) (StakingRewards_Flatten.sol#1021)<br>
+&emsp;&emsp;&emsp;&emsp;- returndata = address(token).functionCall(data,SafeERC20: low-level call failed) (StakingRewards_Flatten.sol#730)<br>
+&emsp;&emsp;&emsp;&emsp;- (success,returndata) = target.call{value: value}(data) (StakingRewards_Flatten.sol#509)<br>
+&emsp;&emsp;&emsp;&emsp;- stakingToken.safeTransfer(msg.sender,amount) (StakingRewards_Flatten.sol#999)<br>
+&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)<br>
+&emsp;&emsp;&emsp;&emsp;- returndata = address(token).functionCall(data,SafeERC20: low-level call failed) (StakingRewards_Flatten.sol#730)<br>
+&emsp;&emsp;&emsp;&emsp;- rewardsToken.safeTransfer(msg.sender,reward) (StakingRewards_Flatten.sol#1011)<br>
+&emsp;&emsp;&emsp;&emsp;- (success,returndata) = target.call{value: value}(data) (StakingRewards_Flatten.sol#509)<br>
+&emsp;&emsp;External calls sending eth:<br>
+&emsp;&emsp;- unstake(balances[msg.sender]) (StakingRewards_Flatten.sol#1021)<br>
+&emsp;&emsp;&emsp;&emsp;- (success,returndata) = target.call{value: value}(data) (StakingRewards_Flatten.sol#509)<br>
+&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)<br>
+&emsp;&emsp;&emsp;&emsp;- (success,returndata) = target.call{value: value}(data) (StakingRewards_Flatten.sol#509)<br>
+&emsp;&emsp;Event emitted after the call(s):<br>
+&emsp;&emsp;- Claimed(msg.sender,reward) (StakingRewards_Flatten.sol#1012)<br>
+&emsp;&emsp;&emsp;&emsp;- claim() (StakingRewards_Flatten.sol#1022)<br>
+Reentrancy in StakingRewards.fund(uint256) (StakingRewards_Flatten.sol#1032-1057):<br>
+&emsp;&emsp;External calls:<br>
+&emsp;&emsp;- rewardsToken.safeTransferFrom(msg.sender,address(this),reward) (StakingRewards_Flatten.sol#1047)<br>
+&emsp;&emsp;Event emitted after the call(s):<br>
+&emsp;&emsp;- Funded(reward) (StakingRewards_Flatten.sol#1056)<br>
+Reentrancy in StakingRewards.recoverERC20(address,uint256) (StakingRewards_Flatten.sol#1066-1075):<br>
+&emsp;&emsp;External calls:<br>
+&emsp;&emsp;- IERC20(tokenAddress).safeTransfer(owner(),tokenAmount) (StakingRewards_Flatten.sol#1073)<br>
+&emsp;&emsp;Event emitted after the call(s):<br>
+&emsp;&emsp;- Recovered(tokenAddress,tokenAmount) (StakingRewards_Flatten.sol#1074)<br>
+Reentrancy in StakingRewards.stake(uint256) (StakingRewards_Flatten.sol#969-979):<br>
+&emsp;&emsp;External calls:<br>
+&emsp;&emsp;- stakingToken.safeTransferFrom(msg.sender,address(this),amount) (StakingRewards_Flatten.sol#977)<br>
+&emsp;&emsp;Event emitted after the call(s):<br>
+&emsp;&emsp;- Staked(msg.sender,amount) (StakingRewards_Flatten.sol#978)<br>
+Reentrancy in StakingRewards.unstake(uint256) (StakingRewards_Flatten.sol#988-1001):<br>
+&emsp;&emsp;External calls:<br>
+&emsp;&emsp;- stakingToken.safeTransfer(msg.sender,amount) (StakingRewards_Flatten.sol#999)<br>
+&emsp;&emsp;Event emitted after the call(s):<br>
+&emsp;&emsp;- Unstaked(msg.sender,amount) (StakingRewards_Flatten.sol#1000)<br>
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-3<br>
+<br>
+StakingRewards.setRewardsDuration(uint256) (StakingRewards_Flatten.sol#954-960) uses timestamp for comparisons<br>
+&emsp;&emsp;Dangerous comparisons:<br>
+&emsp;&emsp;- block.timestamp < periodFinish (StakingRewards_Flatten.sol#955)<br>
+StakingRewards.claim() (StakingRewards_Flatten.sol#1007-1014) uses timestamp for comparisons<br>
+&emsp;&emsp;Dangerous comparisons:<br>
+&emsp;&emsp;- reward > 0 (StakingRewards_Flatten.sol#1009)<br>
+StakingRewards.fund(uint256) (StakingRewards_Flatten.sol#1032-1057) uses timestamp for comparisons<br>
+&emsp;&emsp;Dangerous comparisons:<br>
+&emsp;&emsp;- block.timestamp >= periodFinish (StakingRewards_Flatten.sol#1035)<br>
+&emsp;&emsp;- rewardRate > balance / rewardsDuration (StakingRewards_Flatten.sol#1049)<br>
+StakingRewards._lastTimeRewardApplicable() (StakingRewards_Flatten.sol#1081-1083) uses timestamp for comparisons<br>
+&emsp;&emsp;Dangerous comparisons:<br>
+&emsp;&emsp;- block.timestamp < periodFinish (StakingRewards_Flatten.sol#1082)<br>
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#block-timestamp<br>
+<br>
+Different versions of Solidity are used:<br>
+&emsp;&emsp;- Version used: ['^0.8.0', '^0.8.1']<br>
+&emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#8)<br>
+&emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#36)<br>
+&emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#121)<br>
+&emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#228)<br>
+&emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#292)<br>
+&emsp;&emsp;- ^0.8.1 (StakingRewards_Flatten.sol#378)<br>
+&emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#626)<br>
+&emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#744)<br>
+&emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#815)<br>
+&emsp;&emsp;- ^0.8.0 (StakingRewards_Flatten.sol#841)<br>
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#different-pragma-directives-are-used<br>
+<br>
+<br>
 [Notice]: Minimum solidity version should be 0.8.9 for StakingRewards.sol.
